@@ -136,7 +136,7 @@ class SnmpTrapHandler(object):
                 else:
                     trapvars['$O'] = trapvars['$q']
 
-        elif trap_version == 'SNMPv2c':
+        elif trap_version == 'SNMPv2c' or trap_version == 'SNMPv3':
             if 'coldStart' in trapvars['$2']:
                 trapvars['$w'] = '0'
                 trapvars['$W'] = 'Cold Start'
@@ -159,6 +159,7 @@ class SnmpTrapHandler(object):
                 trapvars['$w'] = '6'
                 trapvars['$W'] = 'Enterprise Specific'
             trapvars['$O'] = trapvars['$2']  # SNMPv2-MIB::snmpTrapOID.0
+
         LOG.debug('trapvars = %s', trapvars)
 
         LOG.info('%s-Trap-PDU %s from %s at %s %s', trap_version, trapvars['$O'], trapvars['$B'], trapvars['$x'], trapvars['$X'])
